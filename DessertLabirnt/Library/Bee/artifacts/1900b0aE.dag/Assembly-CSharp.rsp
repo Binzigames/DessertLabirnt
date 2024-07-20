@@ -356,7 +356,11 @@
 "Assets/PSXShaderKit/Demo/SpookyOrbFloat.cs"
 "Assets/PSXShaderKit/Scripts/PSXPostProcessEffect.cs"
 "Assets/PSXShaderKit/Scripts/PSXShaderManager.cs"
+"Assets/scripts/Id.cs"
+"Assets/scripts/Inventory.cs"
+"Assets/scripts/PickUp.cs"
 "Assets/scripts/PlayerMovement.cs"
+"Assets/scripts/Stove.cs"
 -langversion:9.0
 
 /deterministic

@@ -7,8 +7,9 @@ public class PlayerMovement : MonoBehaviour
 
     private CharacterController characterController;
     private float verticalVelocity;
-    private float gravity = 14.0f;
-    private float jumpForce = 10.0f;
+    public float gravity = 14.0f;
+
+    private Animator camera;
 
     void Start()
     {
@@ -17,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
 
         // Приховуємо курсор миші при старті
         Cursor.lockState = CursorLockMode.Locked;
+
+        //camera
+        camera = GetComponentInChildren<Animator>();
     }
 
     void Update()
@@ -25,24 +29,20 @@ public class PlayerMovement : MonoBehaviour
         float moveForward = Input.GetAxis("Vertical") * speed;
         float moveSide = Input.GetAxis("Horizontal") * speed;
 
-        // Формування вектора руху
-        Vector3 move = transform.forward * moveForward + transform.right * moveSide;
-
-        // Гравітація і стрибки
-        if (characterController.isGrounded)
+        //cameraAnimator
+        if (moveForward != 0 || moveSide != 0)
         {
-            verticalVelocity = -gravity * Time.deltaTime;
-            if (Input.GetButtonDown("Jump"))
-            {
-                verticalVelocity = jumpForce;
-            }
+            camera.SetBool("isRun", true);
         }
         else
         {
-            verticalVelocity -= gravity * Time.deltaTime;
+            camera.SetBool("isRun", false);
         }
-        
-        move.y = verticalVelocity;
+        // Формування вектора руху
+        Vector3 move = transform.forward * moveForward + transform.right * moveSide;
+
+        // Гравітація
+        move.y -= gravity * Time.deltaTime;
 
         // Переміщення гравця
         characterController.Move(move * Time.deltaTime);
